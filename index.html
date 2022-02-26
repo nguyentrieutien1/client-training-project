@@ -93,7 +93,7 @@
         .then(function (data) {
           const { message, statusCode } = data.result;
           if (statusCode === 200) {
-            window.location.replace("./../login/index.html");
+            window.location.href = "./../login/index.html";
             alert(message);
           } else {
             alert(message);
