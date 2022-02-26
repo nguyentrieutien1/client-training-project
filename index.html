@@ -57,6 +57,7 @@
       </div>
     </div>
   </body>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script>
     const email = document.querySelector(".email");
     const password = document.querySelector(".password");
@@ -76,25 +77,18 @@
     registerBtn.onclick = function (event) {
       event.preventDefault();
       console.log(emailValue, passwordValue, rePasswordValue);
-      fetch("https://dashboard.heroku.com/apps/training-backend-js/register", {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, *cors, same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
-        headers: {
-          "Content-Type": "application/json",
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: "follow", // manual, *follow, error
-        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify({
-          email: emailValue,
-          password: passwordValue,
-          repassword: rePasswordValue,
-        }), // body data type must match "Content-Type" header
-      })
+      axios
+        .post(
+          `https://training-backend-js.herokuapp.com/register`,
+
+          {
+            email: emailValue,
+            password: passwordValue,
+            repassword: rePasswordValue,
+          }
+        )
         .then(function (result) {
-          return result.json();
+          return result.data;
         })
         .then(function (data) {
           const { message, statusCode } = data.result;
